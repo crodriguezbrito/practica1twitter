@@ -10,24 +10,35 @@ a_user = Twitter.user(screen_name)
 puts "Username   : #{a_user.screen_name}"
 
 
-# Iterate friends, hash their followers
+#guardar todas las ids de las personas que sigue
 friends = Twitter.friend_ids(screen_name)
-var = 0  
+#var = 0  
 
+#recorrer el hash friends 
 friends.ids.each do |fid|
-  if var < 10
+
     f = Twitter.user(fid)
-    # Only iterate if we can see their followers
-    if (f.protected.to_s != "true")
-      user[f.screen_name.to_s] = f.followers_count
-      var +=1
+
+    if (f.protected.to_s != "true")  #si usuario no esta protegido
+      user[f.screen_name.to_s] = f.followers_count #introducir en hash user
     
     end
-  end
+
 
 end
 
 
-user.sort_by {|k,v| -v}.each { |user, count| puts "#{user}, #{count}" }
+
+var = 0
+
+usuarios = user.sort_by {|k,v| -v} #guardamos en usuarios el hash user ordenado por nº de seguidores
+
+usuarios.each do |user,count|
+	if (var > iteracion.to_i)
+		break
+	end
+	puts "#{user},#{count}"
+	var +=1
+end
 
 
