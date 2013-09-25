@@ -12,22 +12,22 @@ puts "Username   : #{a_user.screen_name}"
 
 #guardar todas las ids de las personas que sigue
 friends = Twitter.friend_ids(screen_name)
-#var = 0  
+
+contador = 0 
 
 #recorrer el hash friends 
 friends.ids.each do |fid|
-
-    f = Twitter.user(fid)
-
-    if (f.protected.to_s != "true")  #si usuario no esta protegido
-      user[f.screen_name.to_s] = f.followers_count #introducir en hash user
+    if (contador < iteracion.to_i)  #contador de nº de usuarios que quiers que salgan en pantalla
     
-    end
+		f = Twitter.user(fid)
 
+		if (f.protected.to_s != "true")  #si usuario no esta protegido
+		  user[f.screen_name.to_s] = f.followers_count #introducir en hash user
+			contador += 1
+		end
+	end
 
 end
-
-
 
 var = 0
 
